@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(
         'schedules/',
-        ScheduleViewSet.as_view({'post': 'create'}),
+        ScheduleViewSet.as_view({'get': 'list', 'post': 'create'}),
         name='create_schedule'
     ),
     path(
