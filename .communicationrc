@@ -1,0 +1,3 @@
+##### ENV VARS
+export SECRET_KEY='rj28-q6%hwxd4d9h1yr4h2yzi&6pya3#2@3xebwc$r19sg!x1w'
+export MYSQL_PASSWORD=pass_communication
