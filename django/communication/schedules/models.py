@@ -12,7 +12,7 @@ class Communication(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f'{self.description}'
 
 
@@ -33,5 +33,5 @@ class Schedule(models.Model):
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f'{self.uuid} - {self.message} - {self.created_at}'
