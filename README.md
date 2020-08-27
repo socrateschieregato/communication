@@ -79,3 +79,56 @@ To show coverage details (in HTML), use:
 ```bash
 (communication)$ make coverage
 ```
+
+## Running the Application
+Migrations
+```
+(communication)$ make migrate
+```
+
+Application
+```
+(communication)$ make run
+```
+
+## Import this collection in your Postman
+[Collection](docs/Insomnia_2020-08-27.json)
+
+
+## Methods
+#### POST
+![post-create](docs/img/post-create.png)
+
+`localhost:8000/schedules/`
+```json
+{
+	"message": "test message",
+	"recipient": "xpto",
+	"reservation": "2020-07-01 08:00:00",
+	"communication": "push"
+}
+```
+
+to create a schedule, just post with the payload above.
+
+#### GET
+![get-list](docs/img/get-list.png)
+
+`localhost:8000/schedules/`
+
+It will list all schedules
+
+#### RETRIEVE
+![get-retrieve](docs/img/get-retrieve.png)
+
+`localhost:8000/schedules/<uuid>`
+
+Use the uuid create before to return the schedule.
+
+#### DELETE
+![delete-destroy](docs/img/delete-destroy.png)
+
+`localhost:8000/schedules/<uuid>`
+
+Use the uuid to delete the schedule.
+The response is blank, but it will returns a 204 status code

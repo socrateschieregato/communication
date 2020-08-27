@@ -18,7 +18,7 @@ detect-migrations:
 	@django/manage.py makemigrations --dry-run --noinput --settings=communication.settings.test | grep 'No changes detected' -q || (echo 'Missing migration detected!' && exit 1)
 
 dependencies:
-	@pip install -U -r django/requirements/development.txt
+	@pip install -U -r django/requirements/test.txt
 
 migrate:
 	@django/manage.py migrate --settings=communication.settings.base

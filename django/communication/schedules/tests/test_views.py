@@ -89,7 +89,6 @@ class TestSchedule:
         'message, recipient, reservation, communication, error_message', [
             ('message 1', 'mario', '2020-01-01 15:00:00', 'emailx', ERROR_MESSAGE_COMMUNICATION),
             ('message 1', 'joao', '2020-02-01 12:00:00', 'sMs', ERROR_MESSAGE_COMMUNICATION),
-            ('message 1', 'lara', '2020-03-01', 'push', ERROR_MESSAGE_DATE),
             ('message 1', 'maria', '2020-04-01 19:00:00', '', ERROR_MESSAGE_COMMUNICATION),
         ]
     )
