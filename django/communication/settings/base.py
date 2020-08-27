@@ -76,7 +76,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -87,3 +87,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+COMMUNICATION_LIST = os.environ.get('COMMUNICATION_LIST', 'sms,email,whatsapp,push').split(',')
