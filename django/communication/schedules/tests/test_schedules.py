@@ -1,5 +1,5 @@
 import pytest
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 from model_bakery import baker
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
@@ -8,16 +8,17 @@ from rest_framework.test import APIClient
 from communication.schedules.models import Schedule
 
 client = APIClient()
+ERROR_NOT_FOUND = ErrorDetail(string='Not found.', code='not_found')
 ERROR_MESSAGE_DATE = [
     ErrorDetail(
-        string=f'Datetime has wrong format. Use one of these formats instead:'
-               f' YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z].',
+        string='Datetime has wrong format. Use one of these formats instead:'
+               ' YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z].',
         code='invalid'
     )
 ]
 
-ERROR_MESSAGE_COMMUNICATION = f'communication not valid, fill one option in' \
-                              f' [\'sms\', \'email\', \'whatsapp\', \'push\']'
+ERROR_MESSAGE_COMMUNICATION = 'communication not valid, fill one option in'\
+                              ' [\'sms\', \'email\', \'whatsapp\', \'push\']'
 
 
 @pytest.mark.django_db
@@ -53,6 +54,28 @@ class TestSchedule:
         )
 
         assert response.status_code == status.HTTP_200_OK
+
+    def test_retrieve_schedule_should_not_exists(self):
+        response = client.get(
+            path=reverse(
+                'schedule-details',
+                args=['0e86382f-2765-4482-99b7-99caa31a7d43']
+            ),
+            format='json'
+        )
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.data['detail'] == ERROR_NOT_FOUND
+
+    def test_retrieve_schedule_with_no_uuid_patterns(self):
+        with pytest.raises(NoReverseMatch):
+            client.get(
+                path=reverse(
+                    'schedule-details',
+                    args=['abcdefg']
+                ),
+                format='json'
+            )
 
     @pytest.mark.parametrize(
         'message, recipient, reservation, communication', [
@@ -149,3 +172,15 @@ class TestSchedule:
 
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not schedules
+
+    def test_delete_schedule_should_not_exists(self):
+        response = client.delete(
+            path=reverse(
+                'schedule-details',
+                args=['0e86382f-2765-4482-99b7-99caa31a7d43']
+            ),
+            format='json'
+        )
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.data['detail'] == ERROR_NOT_FOUND
